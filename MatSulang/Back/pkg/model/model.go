@@ -1,11 +1,11 @@
 package model
 
 type TMEMBER struct {
-	MEMBERID string `json:"MemberID"`
-	USERID   string `json:"UserID"`
-	PASSWORD string `json:"Password"`
-	NICKNAME string `json:"Nickname"`
-	REPORT   string `json:"report"`
+	MemberID string `json:"MEMBERID"`
+	UserID   string `json:"USERID"`
+	Password string `json:"PASSWORD"`
+	Nickname string `json:"NICKNAME"`
+	report   int32  `json:"REPORT"`
 }
 type TALCOHOL struct {
 	ALCOHOLID string `json:"AlcoholID"`
@@ -37,15 +37,20 @@ type TPAIRING struct {
 }
 
 type TREPLY struct {
-	REPLYID  string `json:"ReplyID"`
-	BOARDID  string `json:"BoardID"`
-	TITLE    string `json:"Title"`
-	CONTENTS string `json:"Contents"`
-	MEMBERID string `json:"MemeberID"`
+	ReplyID   string `json:"REPLYID"`
+	BoardID   string `json:"BOARDID"`
+	Title     string `json:"TITLE"`
+	CONTENTS  string `json:"CONTENTS"`
+	MemeberID string `json:"MEMBERID"`
 }
 
 type TIMAGE struct {
 	IMAGEID string `json:"ImageID"`
 	TYPE    string `json:"Type"`
 	PATH    string `json:"Path"`
+}
+
+type Login struct {
+	UserID   string `json:"userID"`
+	Password string `json:"password"`
 }
