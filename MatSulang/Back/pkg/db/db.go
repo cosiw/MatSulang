@@ -43,6 +43,23 @@ func (db DBHandler) SelectData(tName string, colums, condition string) (string, 
 
 	return jsonData, nil
 }
+func (db DBHandler) InsertData(tName string, columns string, values string) (int64, error) {
+	query := fmt.Sprintf("INSERT INTO %s (%s) VALUES (%s)", tName, columns, values)
+	fmt.Println(query)
+	res, err := db.DB.Exec(query)
+
+	if err != nil {
+		fmt.Printf("INSERT Error!, %v", err)
+		return 0, err
+	}
+	id, err := res.LastInsertId()
+
+	if err != nil {
+		fmt.Printf("Failed to check the last inserted date (%s)", err)
+		return id, err
+	}
+	return id, nil
+}
 
 func GetJSONFromRows(rows *sql.Rows) (string, error) {
 	columns, err := rows.Columns()
@@ -86,4 +103,26 @@ func removeArrChars(arr string) string {
 	arr = strings.Replace(arr, "[", "", 1)
 	arr = strings.Replace(arr, "]", "", 1)
 	return arr
+}
+
+func (db DBHandler) DeleteData(table string, cond string) (int64, error) {
+	query := fmt.Sprintf("DELETE FROM %s WHERE %s", table, cond)
+	fmt.Println(query)
+	res, err := db.DB.Exec(query)
+	if err != nil {
+		fmt.Printf("DELETE QUERY ERROR! %v", err)
+	}
+
+	rowsCnt, err := res.RowsAffected()
+
+	if err != nil {
+		fmt.Printf("RowsAffected Error! %v", err)
+	}
+
+	if rowsCnt <= 0 {
+		fmt.Printf("DELETE COUNT 0!")
+	}
+
+	return rowsCnt, err
+
 }

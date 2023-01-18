@@ -5,7 +5,7 @@ type TMEMBER struct {
 	UserID   string `json:"USERID"`
 	Password string `json:"PASSWORD"`
 	Nickname string `json:"NICKNAME"`
-	report   int32  `json:"REPORT"`
+	Report   int32  `json:"REPORT"`
 }
 type TALCOHOL struct {
 	ALCOHOLID string `json:"AlcoholID"`

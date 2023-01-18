@@ -9,6 +9,8 @@ import (
 func Router(apis *api.APIs) *gin.Engine {
 	r := gin.Default()
 
-	r.POST("/login", apis.Login)
+	r.POST("/api/login", apis.Login)
+	r.POST("/api/user", apis.InsertUser)
+	r.DELETE("/api/user/:id", apis.DeleteUser)
 	return r
 }
