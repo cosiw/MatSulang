@@ -2,8 +2,8 @@ package api
 
 import (
 	"Back/pkg/model"
+	util "Back/pkg/util"
 	"fmt"
-
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -22,12 +22,21 @@ func (apis *APIs) Login(c *gin.Context) {
 	}
 
 	res, err := apis.db.Login(req)
-	fmt.Println("res : ", *res)
+
+	if res == nil {
+		c.JSON(http.StatusUnauthorized, &Response{Res: "Unauthorized"})
+		return
+	}
 	if err != nil {
 		c.JSON(http.StatusBadRequest, &Response{Res: "Bad request"})
 		return
 	}
-	c.JSON(http.StatusOK, res)
+
+	token, err := util.CreateToken(res.UserID)
+	c.Header("token", token)
+	c.JSON(http.StatusOK, gin.H{
+		"token": token,
+	})
 }
 
 func (apis *APIs) InsertUser(c *gin.Context) {
@@ -65,5 +74,32 @@ func (apis *APIs) DeleteUser(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, &Response{Res: fmt.Sprintln(res)})
+
+}
+
+func (apis *APIs) UpdateUser(c *gin.Context) {
+	id := c.Param("id")
+	req := &model.TMEMBER{}
+
+	err := c.ShouldBind(req)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, &Response{Res: "Bad Request"})
+		return
+	}
+
+	res, err := apis.db.UpdateUser(id, req)
+
+	if err != nil {
+		c.JSON(http.StatusBadRequest, &Response{Res: "Bad Request"})
+		return
+	}
+
+	if res == 0 {
+		c.JSON(http.StatusNoContent, &Response{Res: "No Content"})
+		return
+	}
+
+	c.JSON(http.StatusOK, res)
 
 }

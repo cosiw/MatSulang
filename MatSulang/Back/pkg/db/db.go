@@ -126,3 +126,23 @@ func (db DBHandler) DeleteData(table string, cond string) (int64, error) {
 	return rowsCnt, err
 
 }
+
+func (db DBHandler) UpdateData(table string, value string, cond string) (int64, error) {
+	query := fmt.Sprintf("UPDATE %s SET %s WHERE %s", table, value, cond)
+
+	res, err := db.DB.Exec(query)
+	if err != nil {
+		fmt.Printf("UPDATE Error : %v", err)
+		return 0, err
+	}
+
+	n, err := res.RowsAffected()
+
+	if err != nil {
+		fmt.Printf("RowsAffected Error : %v", err)
+		return 0, err
+	}
+
+	return n, nil
+
+}

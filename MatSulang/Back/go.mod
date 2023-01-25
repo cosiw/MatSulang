@@ -3,14 +3,17 @@ module Back
 go 1.18
 
 require (
-	github.com/dgrijalva/jwt-go/v4 v4.0.0-preview1 // indirect
-	github.com/gin-contrib/cors v1.4.0 // indirect
+	github.com/gin-gonic/gin v1.8.2
+	github.com/go-sql-driver/mysql v1.7.0
+)
+
+require (
+	github.com/cosiw/MatSulang v0.0.0-20230121084006-9dcf0414eddb // indirect
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
-	github.com/gin-gonic/gin v1.8.2 // indirect
 	github.com/go-playground/locales v0.14.0 // indirect
 	github.com/go-playground/universal-translator v0.18.0 // indirect
 	github.com/go-playground/validator/v10 v10.11.1 // indirect
-	github.com/go-sql-driver/mysql v1.7.0 // indirect
 	github.com/goccy/go-json v0.9.11 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
